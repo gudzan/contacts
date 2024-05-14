@@ -7,13 +7,12 @@ const professions = {
     cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
 }
 const qualities = {
-    tedious: { _id: "67rdca3eeb7f6fgeed471198", name: "Нудила", color: "primary" },
+    tedious: { _id: "67rdca3eeb7f6fgeed471198", name: "Душный", color: "primary" },
     strange: { _id: "67rdca3eeb7f6fgeed471100", name: "Странный", color: "secondary" },
-    buller: { _id: "67rdca3eeb7f6fgeed4711012", name: "Троль", color: "success" },
+    buller: { _id: "67rdca3eeb7f6fgeed4711012", name: "Веселый", color: "success" },
     alcoholic: { _id: "67rdca3eeb7f6fgeed471101", name: "Алкоголик", color: "danger" },
     handsome: { _id: "67rdca3eeb7f6fgeed471102", name: "Красавчик", color: "info" },
-    uncertain: { _id: "67rdca3eeb7f6fgeed471103", name: "Неуверенный", color: "dark" },
-
+    uncertain: { _id: "67rdca3eeb7f6fgeed471103", name: "Скромнй", color: "dark" },
 }
 
 const users = [
@@ -23,7 +22,9 @@ const users = [
         profession: professions.doctor,
         qualities: [qualities.tedious, qualities.uncertain, qualities.strange],
         completedMeetings: 36,
-        rate: 2.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2001, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -32,7 +33,9 @@ const users = [
         profession: professions.doctor,
         qualities: [qualities.buller, qualities.handsome, qualities.alcoholic],
         completedMeetings: 15,
-        rate: 2.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2000, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -41,7 +44,9 @@ const users = [
         profession: professions.doctor,
         qualities: [qualities.buller],
         completedMeetings: 247,
-        rate: 3.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1999, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -50,7 +55,9 @@ const users = [
         profession: professions.waiter,
         qualities: [qualities.uncertain],
         completedMeetings: 148,
-        rate: 3.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1996, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -59,7 +66,9 @@ const users = [
         profession: professions.physics,
         qualities: [qualities.strange, qualities.tedious],
         completedMeetings: 37,
-        rate: 4.6,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2023, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -68,7 +77,9 @@ const users = [
         profession: professions.physics,
         qualities: [qualities.strange, qualities.uncertain],
         completedMeetings: 147,
-        rate: 3.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1976, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -77,7 +88,9 @@ const users = [
         profession: professions.engineer,
         qualities: [qualities.strange, qualities.tedious],
         completedMeetings: 72,
-        rate: 3.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1985, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -86,7 +99,9 @@ const users = [
         profession: professions.engineer,
         qualities: [qualities.handsome],
         completedMeetings: 72,
-        rate: 5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1999, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -95,7 +110,9 @@ const users = [
         profession: professions.cook,
         qualities: [qualities.strange, qualities.uncertain],
         completedMeetings: 17,
-        rate: 4.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2004, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -104,7 +121,9 @@ const users = [
         profession: professions.cook,
         qualities: [qualities.handsome, qualities.buller],
         completedMeetings: 17,
-        rate: 4.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2019, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -113,7 +132,9 @@ const users = [
         profession: professions.actor,
         qualities: [qualities.uncertain, qualities.strange],
         completedMeetings: 434,
-        rate: 3.5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(2008, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
     {
@@ -122,7 +143,9 @@ const users = [
         profession: professions.actor,
         qualities: [qualities.handsome],
         completedMeetings: 434,
-        rate: 5,
+        phone: "+7 (495) 123-45-67",
+        birthday: new Date(1998, 1, 14, 12, 42, 12),
+        mail: "exjohnsmith@gmail.com",
         bookmark: false
     },
 ]
