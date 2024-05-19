@@ -10,6 +10,14 @@ export default function App() {
         setUsers(users.filter((user) => user._id !== userId));
     };
 
+    const handleToggleBookmark = (id) => {
+        console.log("я тут");
+        const newUsers = users.map((user) =>
+            user._id === id ? { ...user, bookmark: !user.bookmark } : user
+        );
+        setUsers(newUsers);
+    };
+
     const returnAllUsers = () => {
         setUsers(api.users.fetchAll());
     };
@@ -23,7 +31,11 @@ export default function App() {
                 </button>
             )}
             {users.length !== 0 && (
-                <Users onDelete={handleDelete} users={users} />
+                <Users
+                    onDelete={handleDelete}
+                    onToggleBookmark={handleToggleBookmark}
+                    users={users}
+                />
             )}
         </div>
     );

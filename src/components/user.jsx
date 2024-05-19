@@ -1,6 +1,7 @@
 import React from "react";
-import * as utils from '../utils/utils.js'; 
+import * as utils from "../utils/utils.js";
 import Quality from "./quality.jsx";
+import Bookmark from "./bookmark.jsx";
 
 export default function User(props) {
     const user = props.user;
@@ -10,7 +11,7 @@ export default function User(props) {
             <td>{user.name}</td>
             <td>
                 {user.qualities.map((quality) => (
-                    <Quality {...quality}/>
+                    <Quality {...quality} />
                 ))}
             </td>
             <td>
@@ -35,8 +36,15 @@ export default function User(props) {
                 </a>
             </td>
             <td>
+                <Bookmark
+                    onToggleBookmark={props.onToggleBookmark}
+                    bookmark={user.bookmark}
+                    id={user._id}
+                />
+            </td>
+            <td>
                 <button
-                    onClick={()=>props.onDelete(user._id)}
+                    onClick={() => props.onDelete(user._id)}
                     className="btn btn-outline-danger"
                 >
                     удалить

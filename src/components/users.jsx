@@ -14,12 +14,18 @@ export default function Users(props) {
                     <th scope="col">Профессия</th>
                     <th scope="col">Телефон</th>
                     <th scope="col">Почта</th>
+                    <th scope="col">Избранное</th>
                     <th scope="col">Действия</th>
                 </tr>
             </thead>
             <tbody>
                 {users.map((user) => (
-                    <User key={user._id} onDelete={props.onDelete} user={user} />
+                    <User
+                        key={user._id}
+                        onToggleBookmark={props.onToggleBookmark}
+                        onDelete={props.onDelete}
+                        user={user}
+                    />
                 ))}
             </tbody>
         </table>
