@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import User from "./user.jsx";
 import Pagination from "./pagination.jsx";
+import * as utils from "../utils/utils.js";
 
 export default function Users(props) {
     const users = props.users;
-    const pageSize = 4
+    const pageSize = 4;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handleCurrentPage = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleNextPage = () => {
+        const nextPage = currentPage + 1;
+        setCurrentPage(nextPage);
+    };
+
+    const handlePreviousPage = () => {
+        const previousPage = currentPage - 1;
+        setCurrentPage(previousPage);
+    };
+
+    const usersCrop = utils.paginate(users, currentPage, pageSize);
 
     return (
         <>
-            {" "}
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -23,7 +40,7 @@ export default function Users(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
+                    {usersCrop.map((user) => (
                         <User
                             key={user._id}
                             onToggleBookmark={props.onToggleBookmark}
@@ -33,7 +50,16 @@ export default function Users(props) {
                     ))}
                 </tbody>
             </table>
-            <Pagination itemsCount={users.length} pageSize={pageSize} />
+            {pageSize < users.length && (
+                <Pagination
+                    onSelectPage={handleCurrentPage}
+                    onNextPage={handleNextPage}
+                    onPreviousPage={handlePreviousPage}
+                    currentPage={currentPage}
+                    itemsCount={users.length}
+                    pageSize={pageSize}
+                />
+            )}
         </>
     );
 }

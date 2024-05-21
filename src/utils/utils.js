@@ -36,3 +36,8 @@ export function renderPhrase(
     }
     return result + (end && ` ${end}`);
 }
+
+export function paginate(array, currentPage, pageSize) {
+    const startIndex = (currentPage - 1) * pageSize;
+    return [...array].splice(startIndex, pageSize);
+}

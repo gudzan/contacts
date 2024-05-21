@@ -1,7 +1,7 @@
 import React from "react";
-import reactDom from "react-dom"
-import "bootstrap/dist/css/bootstrap.css"
+import reactDom from "react-dom";
+import "bootstrap/dist/css/bootstrap.css";
 
 import App from "./components/app.jsx";
 
-reactDom.render(<App />, document.getElementById('root'))
+reactDom.render(<App />, document.getElementById("root"));

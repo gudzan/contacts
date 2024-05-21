@@ -11,7 +11,7 @@ export default function User(props) {
             <td>{user.name}</td>
             <td>
                 {user.qualities.map((quality) => (
-                    <Quality {...quality} key={quality._id}/>
+                    <Quality {...quality} key={quality._id} />
                 ))}
             </td>
             <td>
