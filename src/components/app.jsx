@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchStatus from "./searchStatus";
-import api from "../api";
+import api from "../api/index.js";
 import Users from "./users.jsx";
 
 export default function App() {
