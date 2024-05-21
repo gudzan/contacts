@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import SearchStatus from "./searchStatus";
-import api from "../api/index.js";
-import Users from "./users.jsx";
+import SearchStatus from "./components/searchStatus.jsx";
+import api from "./api/index.js";
+import Users from "./components/users.jsx"
 
 export default function App() {
     const [users, setUsers] = useState(api.users.fetchAll());
