@@ -10,14 +10,24 @@ export default function Users(props) {
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
+    const [selectProf, setSelectProf] = useState();
 
     useEffect(() => {
-        api.professions.fetchAll().then((data)=>setProfessions(data))
+        api.professions.fetchAll().then((data) => setProfessions(data));
         console.log("useEffect");
         return () => {
             console.log("the end");
         };
     }, []);
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [selectProf]);
+
+    const handleSelectProf = (profession) => {
+        setSelectProf(profession);
+    };
+
     const handleCurrentPage = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -31,10 +41,35 @@ export default function Users(props) {
         const previousPage = currentPage - 1;
         setCurrentPage(previousPage);
     };
-    const usersCrop = utils.paginate(users, currentPage, pageSize);
+
+    const clearAllFilters = () => {
+        setProfessions();
+    };
+
+    const filteredUsers = selectProf
+        ? users.filter((user) => user.profession === selectProf)
+        : users;
+    const usersCount = filteredUsers.length
+    const usersCrop = utils.paginate(filteredUsers, currentPage, pageSize);
+
     return (
         <>
-            {professions &&(<Filter items={professions}/>)}
+            <div></div>
+            {professions && (
+                <div className="d-flex justify-content-between mb-3">
+                    <Filter
+                        items={professions}
+                        onSelectItem={handleSelectProf}
+                        selectedItem={selectProf}
+                    />
+                    <button
+                        className="btn btn-danger btn-sm"
+                        onClick={clearAllFilters}
+                    >
+                        Очистить
+                    </button>
+                </div>
+            )}
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -59,13 +94,13 @@ export default function Users(props) {
                     ))}
                 </tbody>
             </table>
-            {pageSize < users.length && (
+            {pageSize < usersCount && (
                 <Pagination
                     onSelectPage={handleCurrentPage}
                     onNextPage={handleNextPage}
                     onPreviousPage={handlePreviousPage}
                     currentPage={currentPage}
-                    itemsCount={users.length}
+                    itemsCount={usersCount}
                     pageSize={pageSize}
                 />
             )}
