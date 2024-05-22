@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import SearchStatus from "./components/searchStatus.jsx";
 import api from "./api/index.js";
-import Users from "./components/users.jsx"
+import Users from "./components/users.jsx";
 
 export default function App() {
     const [users, setUsers] = useState(api.users.fetchAll());
-    console.log(users);
 
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
 
     const handleToggleBookmark = (id) => {
-        console.log("я тут");
         const newUsers = users.map((user) =>
             user._id === id ? { ...user, bookmark: !user.bookmark } : user
         );

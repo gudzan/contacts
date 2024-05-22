@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import User from "./user.jsx";
 import Pagination from "./pagination.jsx";
 import * as utils from "../utils/utils.js";
+import Filter from "./filter.jsx";
+import api from "../api/index.js";
 
 export default function Users(props) {
     const users = props.users;
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
+    const [professions, setProfessions] = useState();
 
+    useEffect(() => {
+        api.professions.fetchAll().then((data)=>setProfessions(data))
+        console.log("useEffect");
+        return () => {
+            console.log("the end");
+        };
+    }, []);
     const handleCurrentPage = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -21,11 +31,10 @@ export default function Users(props) {
         const previousPage = currentPage - 1;
         setCurrentPage(previousPage);
     };
-
     const usersCrop = utils.paginate(users, currentPage, pageSize);
-
     return (
         <>
+            {professions &&(<Filter items={professions}/>)}
             <table className="table table-hover">
                 <thead>
                     <tr>
