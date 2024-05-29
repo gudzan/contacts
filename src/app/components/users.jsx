@@ -21,7 +21,7 @@ export default function Users(props) {
     }, []);
 
     useEffect(() => {
-        setCurrentPage(1)
+        setCurrentPage(1);
     }, [selectProf]);
 
     const handleSelectProf = (profession) => {
@@ -43,13 +43,13 @@ export default function Users(props) {
     };
 
     const clearAllFilters = () => {
-        setProfessions();
+        setSelectProf();
     };
 
     const filteredUsers = selectProf
         ? users.filter((user) => user.profession === selectProf)
         : users;
-    const usersCount = filteredUsers.length
+    const usersCount = filteredUsers.length;
     const usersCrop = utils.paginate(filteredUsers, currentPage, pageSize);
 
     return (
@@ -57,11 +57,22 @@ export default function Users(props) {
             <div></div>
             {professions && (
                 <div className="d-flex justify-content-between mb-3">
-                    <Filter
-                        items={professions}
-                        onSelectItem={handleSelectProf}
-                        selectedItem={selectProf}
-                    />
+                    <div className="d-flex align-items-center">
+                        <Filter
+                            items={professions}
+                            onSelectItem={handleSelectProf}
+                            selectedItem={selectProf}
+                        />
+                        <div className="text-black-50 ms-3">По фильтру&nbsp;   
+                            {utils.renderPhrase(
+                                usersCount,
+                                "юзер",
+                                "юзера",
+                                "юзеров"
+                            )}
+                        </div>
+                    </div>
+
                     <button
                         className="btn btn-danger btn-sm"
                         onClick={clearAllFilters}
