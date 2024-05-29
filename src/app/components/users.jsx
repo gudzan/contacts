@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import User from "./user.jsx";
+import UsersTable from "./usersTable.jsx";
 import Pagination from "./pagination.jsx";
 import * as utils from "../utils/utils.js";
 import Filter from "./filter.jsx";
 import api from "../api/index.js";
+import _ from "lodash";
 
 export default function Users(props) {
     const users = props.users;
@@ -11,6 +12,7 @@ export default function Users(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectProf, setSelectProf] = useState();
+    const [sortBy, setSortBy] = useState({ iterate: "name", order: "asc" });
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
@@ -46,11 +48,28 @@ export default function Users(props) {
         setSelectProf();
     };
 
+    const handleSort = (item) => {
+        if (item === sortBy.iterate) {
+            setSortBy((prevState) => ({
+                ...prevState,
+                order: prevState.order === "asc" ? "desc" : "asc",
+            }));
+        } else {
+            setSortBy({ iterate: item, order: "asc" });
+        }
+        console.log(sortBy);
+    };
+
     const filteredUsers = selectProf
         ? users.filter((user) => user.profession === selectProf)
         : users;
     const usersCount = filteredUsers.length;
-    const usersCrop = utils.paginate(filteredUsers, currentPage, pageSize);
+    const sortedUsers = _.orderBy(
+        filteredUsers,
+        [sortBy.iterate],
+        [sortBy.order]
+    );
+    const usersFinish = utils.paginate(sortedUsers, currentPage, pageSize);
 
     return (
         <>
@@ -63,14 +82,17 @@ export default function Users(props) {
                             onSelectItem={handleSelectProf}
                             selectedItem={selectProf}
                         />
-                        <div className="text-black-50 ms-3">По фильтру&nbsp;   
-                            {utils.renderPhrase(
-                                usersCount,
-                                "юзер",
-                                "юзера",
-                                "юзеров"
-                            )}
-                        </div>
+                        {users.length !== usersCount && (
+                            <div className="text-black-50 ms-3">
+                                По фильтру&nbsp;
+                                {utils.renderPhrase(
+                                    usersCount,
+                                    "юзер",
+                                    "юзера",
+                                    "юзеров"
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <button
@@ -81,30 +103,12 @@ export default function Users(props) {
                     </button>
                 </div>
             )}
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Тэги</th>
-                        <th scope="col">Дата рождения</th>
-                        <th scope="col">Профессия</th>
-                        <th scope="col">Телефон</th>
-                        <th scope="col">Почта</th>
-                        <th scope="col">Избранное</th>
-                        <th scope="col">Действия</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {usersCrop.map((user) => (
-                        <User
-                            key={user._id}
-                            onToggleBookmark={props.onToggleBookmark}
-                            onDelete={props.onDelete}
-                            user={user}
-                        />
-                    ))}
-                </tbody>
-            </table>
+            <UsersTable
+                users={usersFinish}
+                onDelete={props.onDelete}
+                onToggleBookmark={props.onToggleBookmark}
+                onSort={handleSort}
+            />
             {pageSize < usersCount && (
                 <Pagination
                     onSelectPage={handleCurrentPage}
