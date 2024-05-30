@@ -1,21 +1,28 @@
 import React from "react";
 import User from "./user";
+import TableHeader from "./tableHeader";
 
-export default function UsersTable({users, onToggleBookmark, onDelete, onSort }) {
+export default function UsersTable({
+    users,
+    selectSort,
+    onToggleBookmark,
+    onDelete,
+    onSort,
+}) {
+    const columns = {
+        name: { iter: "name", name: "Имя" },
+        qualities: { name: "Тэги" },
+        birthday: { iter: "birthday", name: "Дата рождения" },
+        profession: { iter: "profession.name", name: "Профессия" },
+        phone: { name: "Телефон" },
+        mail: { name: "Почта" },
+        bookmark: { iter: "bookmark", name: "Избранное" },
+        action: { name: "Действия" },
+    };
+
     return (
         <table className="table table-hover">
-            <thead>
-                <tr>
-                    <th onClick={() => onSort("name")} scope="col">Имя</th>
-                    <th scope="col">Тэги</th>
-                    <th onClick={() => onSort("birthday")} scope="col">Дата рождения</th>
-                    <th onClick={() => onSort("profession.name")} scope="col">Профессия</th>
-                    <th scope="col">Телефон</th>
-                    <th scope="col">Почта</th>
-                    <th onClick={() => onSort("bookmark")} scope="col">Избранное</th>
-                    <th scope="col">Действия</th>
-                </tr>
-            </thead>
+            <TableHeader {...{ selectSort, onSort, columns }} />
             <tbody>
                 {users.map((user) => (
                     <User

@@ -46,18 +46,11 @@ export default function Users(props) {
 
     const clearAllFilters = () => {
         setSelectProf();
+        setSortBy({ iterate: "name", order: "asc" });
     };
 
     const handleSort = (item) => {
-        if (item === sortBy.iterate) {
-            setSortBy((prevState) => ({
-                ...prevState,
-                order: prevState.order === "asc" ? "desc" : "asc",
-            }));
-        } else {
-            setSortBy({ iterate: item, order: "asc" });
-        }
-        console.log(sortBy);
+        setSortBy(item);
     };
 
     const filteredUsers = selectProf
@@ -99,12 +92,13 @@ export default function Users(props) {
                         className="btn btn-danger btn-sm"
                         onClick={clearAllFilters}
                     >
-                        Очистить
+                        Сбросить все
                     </button>
                 </div>
             )}
             <UsersTable
                 users={usersFinish}
+                selectSort={sortBy}
                 onDelete={props.onDelete}
                 onToggleBookmark={props.onToggleBookmark}
                 onSort={handleSort}
