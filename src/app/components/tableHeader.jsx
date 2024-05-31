@@ -19,12 +19,12 @@ export default function TableHeader({ selectSort, onSort, columns }) {
                     <th
                         key={col}
                         onClick={
-                            columns[col].iter
-                                ? () => handleSort(columns[col].iter)
+                            columns[col].sort
+                                ? () => handleSort(columns[col].path)
                                 : undefined
                         }
                         scope="col"
-                        role={columns[col].iter && "button"}
+                        role={columns[col].sort && "button"}
                     >
                         {columns[col].name}
                     </th>

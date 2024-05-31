@@ -66,7 +66,6 @@ export default function Users(props) {
 
     return (
         <>
-            <div></div>
             {professions && (
                 <div className="d-flex justify-content-between mb-3">
                     <div className="d-flex align-items-center">
