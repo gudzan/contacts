@@ -1,6 +1,5 @@
 import React from "react";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
+import Table from "./table";
 import Bookmark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 
@@ -47,10 +46,5 @@ export default function UsersTable({
         },
     };
 
-    return (
-        <table className="table table-hover">
-            <TableHeader {...{ selectSort, onSort, columns }} />
-            <TableBody {...{ columns, data: users }} />
-        </table>
-    );
+    return <Table {...{ selectSort, onSort, columns, data: users }} />;
 }
