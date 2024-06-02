@@ -12,6 +12,13 @@ export default function TableHeader({ selectSort, onSort, columns }) {
         }
     }
 
+    const typeOfArrow =
+        selectSort.order === "asc" ? (
+            <i className="bi bi-caret-down-fill"></i>
+        ) : (
+            <i className="bi bi-caret-up-fill"></i>
+        );
+
     return (
         <thead>
             <tr>
@@ -27,6 +34,7 @@ export default function TableHeader({ selectSort, onSort, columns }) {
                         role={columns[col].sort && "button"}
                     >
                         {columns[col].name}
+                        {selectSort.iterate === columns[col].path && typeOfArrow}
                     </th>
                 ))}
             </tr>
