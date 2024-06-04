@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "./table";
+import Table from "./table/table";
 import Bookmark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 

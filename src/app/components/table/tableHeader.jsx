@@ -34,7 +34,8 @@ export default function TableHeader({ selectSort, onSort, columns }) {
                         role={columns[col].sort && "button"}
                     >
                         {columns[col].name}
-                        {selectSort.iterate === columns[col].path && typeOfArrow}
+                        {selectSort.iterate === columns[col].path &&
+                            typeOfArrow}
                     </th>
                 ))}
             </tr>

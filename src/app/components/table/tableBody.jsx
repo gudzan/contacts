@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import * as utils from "../utils/utils.js";
+import * as utils from "../../utils/utils.js";
 
 const TableBody = ({ columns, data }) => {
     function dateToString(date) {
@@ -10,24 +10,22 @@ const TableBody = ({ columns, data }) => {
                 "год",
                 "года",
                 "лет"
-            )})`
+            )})`;
         } else {
             return date;
         }
     }
-    
-    function render(item, column){
-        const component = columns[column].component
-        if(component){
-            if(typeof component==="function"){
-                return component(item)
+
+    function render(item, column) {
+        const component = columns[column].component;
+        if (component) {
+            if (typeof component === "function") {
+                return component(item);
+            } else {
+                return component;
             }
-            else{
-                return component
-            }
-        }
-        else{
-            return dateToString(_.get(item, columns[column].path))
+        } else {
+            return dateToString(_.get(item, columns[column].path));
         }
     }
 
@@ -36,9 +34,7 @@ const TableBody = ({ columns, data }) => {
             {data.map((item) => (
                 <tr key={item._id}>
                     {Object.keys(columns).map((column) => (
-                        <td key={column}>
-                            {render(item, column)}
-                        </td>
+                        <td key={column}>{render(item, column)}</td>
                     ))}
                 </tr>
             ))}
