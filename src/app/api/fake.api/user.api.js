@@ -1,13 +1,37 @@
-import {professions} from "./profession.api"
+import { professions } from "./profession.api";
 
 const qualities = {
-    tedious: { _id: "67rdca3eeb7f6fgeed471198", name: "Душный", color: "primary" },
-    strange: { _id: "67rdca3eeb7f6fgeed471100", name: "Странный", color: "secondary" },
-    buller: { _id: "67rdca3eeb7f6fgeed4711012", name: "Веселый", color: "success" },
-    alcoholic: { _id: "67rdca3eeb7f6fgeed471101", name: "Алкоголик", color: "danger" },
-    handsome: { _id: "67rdca3eeb7f6fgeed471102", name: "Красавчик", color: "info" },
-    uncertain: { _id: "67rdca3eeb7f6fgeed471103", name: "Скромнй", color: "dark" },
-}
+    tedious: {
+        _id: "67rdca3eeb7f6fgeed471198",
+        name: "Душный",
+        color: "primary",
+    },
+    strange: {
+        _id: "67rdca3eeb7f6fgeed471100",
+        name: "Странный",
+        color: "secondary",
+    },
+    buller: {
+        _id: "67rdca3eeb7f6fgeed4711012",
+        name: "Веселый",
+        color: "success",
+    },
+    alcoholic: {
+        _id: "67rdca3eeb7f6fgeed471101",
+        name: "Алкоголик",
+        color: "danger",
+    },
+    handsome: {
+        _id: "67rdca3eeb7f6fgeed471102",
+        name: "Красавчик",
+        color: "info",
+    },
+    uncertain: {
+        _id: "67rdca3eeb7f6fgeed471103",
+        name: "Скромнй",
+        color: "dark",
+    },
+};
 
 const users = [
     {
@@ -19,7 +43,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2001, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471816",
@@ -30,7 +54,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2000, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471817",
@@ -41,7 +65,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1999, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471818",
@@ -52,7 +76,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1996, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471819",
@@ -63,7 +87,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2023, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471820",
@@ -74,7 +98,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1976, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471821",
@@ -85,7 +109,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1985, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471822",
@@ -96,7 +120,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1999, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471823",
@@ -107,7 +131,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2004, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed471824",
@@ -118,7 +142,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2019, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed47181f",
@@ -129,7 +153,7 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(2008, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
     {
         _id: "67rdca3eeb7f6fgeed47181r",
@@ -140,9 +164,14 @@ const users = [
         phone: "+7 (495) 123-45-67",
         birthday: new Date(1998, 1, 14, 12, 42, 12),
         mail: "exjohnsmith@gmail.com",
-        bookmark: false
+        bookmark: false,
     },
-]
+];
+
 export function fetchAll() {
-    return users
+    return users;
+}
+
+export function getById(id) {
+    return users.find((user) => user._id === id);
 }
