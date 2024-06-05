@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import UsersTable from "./usersTable.jsx";
-import Pagination from "./pagination.jsx";
-import SearchStatus from "./searchStatus.jsx";
-import * as utils from "../utils/utils.js";
-import Filter from "./filter.jsx";
-import api from "../api/index.js";
+import UsersTable from "../usersTable.jsx";
+import Pagination from "../pagination.jsx";
+import SearchStatus from "../searchStatus.jsx";
+import * as utils from "../../utils/utils.js";
+import Filter from "../filter.jsx";
+import api from "../../api/index.js";
 import _ from "lodash";
 
 export default function Users() {

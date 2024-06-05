@@ -2,7 +2,7 @@ import React from "react";
 import Table from "./table/table";
 import Bookmark from "./bookmark";
 import QualitiesList from "./qualitiesList";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function UsersTable({
     users,
@@ -12,11 +12,14 @@ export default function UsersTable({
     onSort,
 }) {
     const columns = {
-        name: { path: "name", sort: true, name: "Имя",
+        name: {
+            path: "name",
+            sort: true,
+            name: "Имя",
             component: (user) => (
                 <Link to={`/user/${user._id}`}>{user.name}</Link>
             ),
-         },
+        },
         qualities: {
             path: "qualities.name",
             name: "Тэги",

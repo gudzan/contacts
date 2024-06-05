@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import QualitiesList from "./qualitiesList";
 import * as utils from "../utils/utils.js";
@@ -6,11 +6,11 @@ import api from "../api";
 
 export default function User() {
     const params = useParams();
-    const history = useHistory()
+    const history = useHistory();
     const user = api.users.getById(params.userId);
 
-    function handleClick(){
-        history.push("/users")
+    function handleClick() {
+        history.push("/users");
     }
 
     if (user) {
