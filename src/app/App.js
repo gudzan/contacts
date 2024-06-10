@@ -17,7 +17,7 @@ export default function App() {
                     render={(props) => <User {...props} />}
                 />
                 <Route path="/users" component={Users} />
-                <Route path="/login" component={Login} />
+                <Route path="/login/:type?" component={Login} />
                 <Redirect to="/" />
             </Switch>
         </div>

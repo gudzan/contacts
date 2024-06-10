@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField.jsx";
-import { validate} from "../../utils/validator.js"
-
+import { validate } from "../../utils/validator.js";
 
 const LoginForm = () => {
     const [data, setData] = useState({ email: "", password: "" });
@@ -61,38 +60,31 @@ const LoginForm = () => {
     const isValid = Object.keys(errors).length === 0;
 
     return (
-        <div className="container mt-5">
-            <div className="row">
-                <div className="col-md-6 offset-md-3 shadow p-5">
-                    <h3 className="mb-4">Login form</h3>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Почта:"
-                            name="email"
-                            value={data.email}
-                            onChange={handleClick}
-                            error={errors.email}
-                        />
-                        <TextField
-                            label="Пароль:"
-                            name="password"
-                            type="password"
-                            value={data.password}
-                            onChange={handleClick}
-                            error={errors.password}
-                        />
-                        <button
-                            className="w-100 mx-auto btn btn-primary"
-                            type="submit"
-                            disabled={!isValid}
-                        >
-                            Отправить
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <TextField
+                label="Почта:"
+                name="email"
+                value={data.email}
+                onChange={handleClick}
+                error={errors.email}
+            />
+            <TextField
+                label="Пароль:"
+                name="password"
+                type="password"
+                value={data.password}
+                onChange={handleClick}
+                error={errors.password}
+            />
+            <button
+                className="w-100 mx-auto btn btn-primary"
+                type="submit"
+                disabled={!isValid}
+            >
+                Отправить
+            </button>
+        </form>
     );
-}
- 
+};
+
 export default LoginForm;
