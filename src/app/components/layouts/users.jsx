@@ -8,13 +8,18 @@ import api from "../../api/index.js";
 import _ from "lodash";
 
 export default function Users() {
-    //const users = props.users;
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectProf, setSelectProf] = useState();
     const [sortBy, setSortBy] = useState({ iterate: "name", order: "asc" });
     const [users, setUsers] = useState(api.users.fetchAll());
+    const [searchData, setSearchData] = useState("");
+
+    function handleSearch(e) {
+        setSearchData(e.target.value);
+        setSelectProf();
+    }
 
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
@@ -30,6 +35,7 @@ export default function Users() {
     const returnAllUsers = () => {
         setUsers(api.users.fetchAll());
     };
+
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
         console.log("useEffect");
@@ -40,10 +46,11 @@ export default function Users() {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectProf]);
+    }, [selectProf, searchData]);
 
     const handleSelectProf = (profession) => {
         setSelectProf(profession);
+        setSearchData("");
     };
 
     const handleCurrentPage = (pageNumber) => {
@@ -62,6 +69,7 @@ export default function Users() {
 
     const clearAllFilters = () => {
         setSelectProf();
+        setSearchData("");
         setSortBy({ iterate: "name", order: "asc" });
     };
 
@@ -69,15 +77,19 @@ export default function Users() {
         setSortBy(item);
     };
 
-    const filteredUsers = selectProf
-        ? users.filter((user) => user.profession === selectProf)
-        : users;
-    const usersCount = filteredUsers.length;
-    const sortedUsers = _.orderBy(
-        filteredUsers,
-        [sortBy.iterate],
-        [sortBy.order]
-    );
+    function filterOrSearchUsers() {
+        if (selectProf) {
+            return users.filter((user) => user.profession === selectProf);
+        } else if (searchData) {
+            return users.filter((user) =>
+                user.name.toLowerCase().includes(searchData.toLowerCase())
+            );
+        } else return users;
+    }
+
+    const newUsers = filterOrSearchUsers();
+    const usersCount = newUsers.length;
+    const sortedUsers = _.orderBy(newUsers, [sortBy.iterate], [sortBy.order]);
     const usersFinish = utils.paginate(sortedUsers, currentPage, pageSize);
 
     return (
@@ -89,32 +101,40 @@ export default function Users() {
                 </button>
             )}
             {professions && users.length !== 0 && (
-                <div className="d-flex justify-content-between mb-3">
+                <div
+                    className={
+                        "d-flex justify-content-between parent align-items-center p-2" +
+                        (users.length == usersCount ? " mb-3" : "")
+                    }
+                >
                     <div className="d-flex align-items-center">
                         <Filter
                             items={professions}
                             onSelectItem={handleSelectProf}
                             selectedItem={selectProf}
                         />
-                        {users.length !== usersCount && (
-                            <div className="text-black-50 ms-3">
-                                По фильтру&nbsp;
-                                {utils.renderPhrase(
-                                    usersCount,
-                                    "юзер",
-                                    "юзера",
-                                    "юзеров"
-                                )}
-                            </div>
-                        )}
                     </div>
 
+                    <input
+                        className="child form-control"
+                        placeholder="Search..."
+                        type="text"
+                        value={searchData}
+                        onChange={handleSearch}
+                    />
+
                     <button
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-danger"
                         onClick={clearAllFilters}
                     >
-                        Сбросить все
+                        Сбросить
                     </button>
+                </div>
+            )}
+            {users.length !== usersCount && (
+                <div className="text-black-50 p-2">
+                    Нашел&nbsp;
+                    {utils.renderPhrase(usersCount, "юзер", "юзера", "юзеров")}
                 </div>
             )}
             {users.length !== 0 && (
