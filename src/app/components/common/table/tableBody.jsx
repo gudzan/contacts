@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import * as utils from "../../utils/utils.js";
+import * as utils from "../../../utils/utils.js";
 
 const TableBody = ({ columns, data }) => {
     function dateToString(date) {

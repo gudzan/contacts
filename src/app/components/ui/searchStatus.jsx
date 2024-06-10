@@ -1,5 +1,5 @@
 import React from "react";
-import * as utils from "../utils/utils.js";
+import * as utils from "../../utils/utils.js";
 
 export default function SearchStatus(props) {
     return (

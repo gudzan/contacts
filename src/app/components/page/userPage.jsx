@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
-import QualitiesList from "./qualitiesList";
-import * as utils from "../utils/utils.js";
-import api from "../api";
+import QualitiesList from "../ui/qualities/qualitiesList.jsx";
+import * as utils from "../../utils/utils.js";
+import api from "../../api/index.js";
 
 export default function User() {
     const params = useParams();

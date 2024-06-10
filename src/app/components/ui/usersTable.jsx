@@ -1,7 +1,7 @@
 import React from "react";
-import Table from "./table/table";
-import Bookmark from "./bookmark";
-import QualitiesList from "./qualitiesList";
+import Table from "../common/table/table";
+import Bookmark from "../common/bookmark";
+import QualitiesList from "./qualities/qualitiesList";
 import { Link } from "react-router-dom";
 
 export default function UsersTable({

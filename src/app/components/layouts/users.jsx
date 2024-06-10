@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import UsersTable from "../usersTable.jsx";
-import Pagination from "../pagination.jsx";
-import SearchStatus from "../searchStatus.jsx";
+import UsersTable from "../ui/usersTable.jsx";
+import Pagination from "../common/pagination.jsx";
+import SearchStatus from "../ui/searchStatus";
 import * as utils from "../../utils/utils.js";
-import Filter from "../filter.jsx";
+import Filter from "../common/filter";
 import api from "../../api/index.js";
 import _ from "lodash";
 
@@ -104,7 +104,7 @@ export default function Users() {
                 <div
                     className={
                         "d-flex justify-content-between parent align-items-center p-2" +
-                        (users.length == usersCount ? " mb-3" : "")
+                        (users.length === usersCount ? " mb-3" : "")
                     }
                 >
                     <div className="d-flex align-items-center">
