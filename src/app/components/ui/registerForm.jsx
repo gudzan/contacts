@@ -3,13 +3,22 @@ import TextField from "../common/form/textField.jsx";
 import SelectField from "../common/form/selectField";
 import { validate } from "../../utils/validator.js";
 import api from "../../api/index.js";
+import RadioField from "../common/form/radioField.jsx";
 
 const RegisterForm = () => {
+    const sex = [
+        { name: "Женщина", value: "female" },
+        { name: "Мужчина", value: "male" },
+        { name: "Не скажу/другое", value: "other" },
+    ];
+
     const [data, setData] = useState({
         email: "",
         password: "",
         profession: "",
+        sex: sex[0].value,
     });
+
     const [professions, setProfessions] = useState();
     const [errors, setErrors] = useState({});
     const errorConfig = {
@@ -101,6 +110,14 @@ const RegisterForm = () => {
                 onChange={handleClick}
                 options={professions}
                 error={errors.profession}
+            />
+
+            <RadioField
+                label="Выбери пол"
+                name="sex"
+                options={sex}
+                value={data.sex}
+                onChange={handleClick}
             />
 
             <button
