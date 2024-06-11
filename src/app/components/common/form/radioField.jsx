@@ -9,22 +9,22 @@ const RadioField = ({ label, name, value, onChange, options }) => {
                 </label>
 
                 {options &&
-                    options.map((el) => (
-                        <div key={el.value} className="form-check">
+                    options.map((element) => (
+                        <div key={element.value} className="form-check">
                             <input
                                 class="form-check-input"
                                 type="radio"
                                 name={name}
-                                id={name + "-" + el.value}
-                                value={el.value}
+                                id={name + "-" + element.value}
+                                value={element.value}
                                 onChange={onChange}
-                                checked={el.value === value}
+                                checked={element.value === value}
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={name + "-" + el.value}
+                                htmlFor={name + "-" + element.value}
                             >
-                                {el.name}
+                                {element.name}
                             </label>
                         </div>
                     ))}
