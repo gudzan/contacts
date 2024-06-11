@@ -4,6 +4,7 @@ import SelectField from "../common/form/selectField";
 import { validate } from "../../utils/validator.js";
 import api from "../../api/index.js";
 import RadioField from "../common/form/radioField.jsx";
+import MultiSelectField from "../common/form/multiSelectField.jsx";
 
 const RegisterForm = () => {
     const sex = [
@@ -17,10 +18,13 @@ const RegisterForm = () => {
         password: "",
         profession: "",
         sex: sex[0].value,
+        qualities: [],
     });
 
     const [professions, setProfessions] = useState();
+    const [qualities, setQualities] = useState();
     const [errors, setErrors] = useState({});
+
     const errorConfig = {
         email: {
             isRequired: {
@@ -57,6 +61,7 @@ const RegisterForm = () => {
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
+        api.qualities.fetchAll().then((data) => setQualities(data));
     }, []);
 
     useEffect(() => {
@@ -64,9 +69,10 @@ const RegisterForm = () => {
     }, [data]);
 
     function handleClick(e) {
+        const dataChange = e.target ? e.target : e;
         setData((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value,
+            [dataChange.name]: dataChange.value,
         }));
     }
 
@@ -93,6 +99,7 @@ const RegisterForm = () => {
                 onChange={handleClick}
                 error={errors.email}
             />
+            
             <TextField
                 label="Пароль:"
                 name="password"
@@ -117,6 +124,14 @@ const RegisterForm = () => {
                 name="sex"
                 options={sex}
                 value={data.sex}
+                onChange={handleClick}
+            />
+
+            <MultiSelectField
+                label="Выбери качества"
+                name="qualities"
+                options={qualities}
+                value={data.qualities}
                 onChange={handleClick}
             />
 

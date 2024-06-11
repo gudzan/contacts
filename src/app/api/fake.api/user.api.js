@@ -1,37 +1,5 @@
 import { professions } from "./profession.api";
-
-const qualities = {
-    tedious: {
-        _id: "67rdca3eeb7f6fgeed471198",
-        name: "Душный",
-        color: "primary",
-    },
-    strange: {
-        _id: "67rdca3eeb7f6fgeed471100",
-        name: "Странный",
-        color: "secondary",
-    },
-    buller: {
-        _id: "67rdca3eeb7f6fgeed4711012",
-        name: "Веселый",
-        color: "success",
-    },
-    alcoholic: {
-        _id: "67rdca3eeb7f6fgeed471101",
-        name: "Алкоголик",
-        color: "danger",
-    },
-    handsome: {
-        _id: "67rdca3eeb7f6fgeed471102",
-        name: "Красавчик",
-        color: "info",
-    },
-    uncertain: {
-        _id: "67rdca3eeb7f6fgeed471103",
-        name: "Скромнй",
-        color: "dark",
-    },
-};
+import { qualities } from "./qualities.api";
 
 const users = [
     {
