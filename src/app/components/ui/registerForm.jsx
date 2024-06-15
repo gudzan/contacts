@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField.jsx";
 import SelectField from "../common/form/selectField";
-import { validate } from "../../utils/validator.js";
+import CheckBoxField from "../common/form/checkBoxField";
+import RadioField from "../common/form/radioField";
+import MultiSelectField from "../common/form/multiSelectField";
+import { validate } from "../../utils/validator";
 import api from "../../api/index.js";
-import RadioField from "../common/form/radioField.jsx";
-import MultiSelectField from "../common/form/multiSelectField.jsx";
-
 const RegisterForm = () => {
     const sex = [
         { name: "Женщина", value: "female" },
@@ -19,6 +19,7 @@ const RegisterForm = () => {
         profession: "",
         sex: sex[0].value,
         qualities: [],
+        licence: false,
     });
 
     const [professions, setProfessions] = useState();
@@ -55,6 +56,12 @@ const RegisterForm = () => {
         profession: {
             isRequired: {
                 message: "Поле профессия обязательно для заполнения",
+            },
+        },
+        licence: {
+            isRequired: {
+                message:
+                    "Необходимо прочитать и принять лицензионное соглашение",
             },
         },
     };
@@ -99,7 +106,7 @@ const RegisterForm = () => {
                 onChange={handleClick}
                 error={errors.email}
             />
-            
+
             <TextField
                 label="Пароль:"
                 name="password"
@@ -134,6 +141,15 @@ const RegisterForm = () => {
                 value={data.qualities}
                 onChange={handleClick}
             />
+
+            <CheckBoxField
+                name="licence"
+                value={data.licence}
+                onChange={handleClick}
+                error={errors.licence}
+            >
+                Я прочитал и принимаю <a href="#">лицензионное соглашение</a>
+            </CheckBoxField>
 
             <button
                 className="w-100 mx-auto btn btn-primary"

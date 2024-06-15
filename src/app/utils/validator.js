@@ -4,9 +4,14 @@ export function validate(data, errorConfig) {
     function compare(data, config, method) {
         let statusCompare;
         switch (method) {
-            case "isRequired":
-                statusCompare = data.trim() === "";
+            case "isRequired": {
+                if (typeof data === "boolean") {
+                    statusCompare = !data;
+                } else {
+                    statusCompare = data.trim() === "";
+                }
                 break;
+            }
             case "isEmail": {
                 const emailReqExp = /^\S+@\S+\.\S+$/g;
                 statusCompare = !emailReqExp.test(data);
@@ -28,7 +33,7 @@ export function validate(data, errorConfig) {
                 break;
             }
             case "min": {
-                statusCompare = data.length < config.value
+                statusCompare = data.length < config.value;
                 break;
             }
             default:

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField.jsx";
 import { validate } from "../../utils/validator.js";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const LoginForm = () => {
-    const [data, setData] = useState({ email: "", password: "" });
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        stayOn: false,
+    });
     const [errors, setErrors] = useState({});
     const errorConfig = {
         email: {
@@ -26,9 +31,10 @@ const LoginForm = () => {
     }, [data]);
 
     function handleClick(e) {
+        const dataChange = e.target ? e.target : e;
         setData((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value,
+            [dataChange.name]: dataChange.value,
         }));
     }
 
@@ -63,6 +69,13 @@ const LoginForm = () => {
                 onChange={handleClick}
                 error={errors.password}
             />
+            <CheckBoxField
+                name="stayOn"
+                value={data.stayOn}
+                onChange={handleClick}
+            >
+                Оставаться в системе
+            </CheckBoxField>
             <button
                 className="w-100 mx-auto btn btn-primary"
                 type="submit"
