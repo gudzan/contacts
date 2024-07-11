@@ -7,6 +7,7 @@ export default function TextField({
     value,
     onChange,
     error,
+    ...rest
 }) {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -32,6 +33,7 @@ export default function TextField({
                     name={name}
                     value={value}
                     onChange={onChange}
+                    {...rest}
                 />
                 {type === "password" && (
                     <button
@@ -39,7 +41,11 @@ export default function TextField({
                         type="button"
                         onClick={toggleShowPassword}
                     >
-                        <i className={"bi bi-eye"+(showPassword?"-slash":"")}></i>
+                        <i
+                            className={
+                                "bi bi-eye" + (showPassword ? "-slash" : "")
+                            }
+                        ></i>
                     </button>
                 )}
                 {error && <div className="invalid-feedback">{error}</div>}

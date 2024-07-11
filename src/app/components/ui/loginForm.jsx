@@ -60,6 +60,7 @@ const LoginForm = () => {
                 value={data.email}
                 onChange={handleClick}
                 error={errors.email}
+                autoFocus
             />
             <TextField
                 label="Пароль:"
