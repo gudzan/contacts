@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import httpService from "../services/httpService.js"
+import qualityService from "../services/qualityService.js";
 
 export default function QualititesList() {
     const [qualitites, setQualitites] = useState([]);
     useEffect(() => {
-        httpService
-            .get("quality")
-            .then((res) => setQualitites(res.data.content));
+        qualityService.getAll().then((data)=>setQualitites(data.content))
     }, []);
     return (
         <>
