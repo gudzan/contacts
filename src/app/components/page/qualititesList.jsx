@@ -5,7 +5,7 @@ export default function QualititesList() {
     const [qualitites, setQualitites] = useState([]);
     useEffect(() => {
         httpService
-            .get("http://localhost:4000/api/v1/quality")
+            .get("quality")
             .then((res) => setQualitites(res.data.content));
     }, []);
     return (
