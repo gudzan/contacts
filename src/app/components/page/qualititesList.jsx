@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import qualityService from "../services/qualityService.js";
+import React from "react";
+import { useQualities } from "../hooks/useQualities.jsx";
 
 export default function QualititesList() {
-    const [qualitites, setQualitites] = useState([]);
-    useEffect(() => {
-        qualityService.getAll().then((data)=>setQualitites(data.content))
-    }, []);
+    const {qualites, isLoading} = useQualities()
     return (
         <>
             <p>QualititesList+axios</p>
-            {qualitites && qualitites.map((q) => <p key={q._id}>{q.name}</p>)}
+            {!isLoading && qualites.map((q) => <p key={q._id}>{q.name}</p>)}
         </>
     );
 }
