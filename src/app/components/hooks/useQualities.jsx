@@ -2,10 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import qualityService from "../services/qualityService";
 import { toast } from "react-toastify";
 
-const QualitiesContex = React.createContext();
+const QualitiesContext = React.createContext();
 
 export const useQualities = () => {
-    return useContext(QualitiesContex);
+    return useContext(QualitiesContext);
 };
 
 export const QualitiesProvider = ({ children }) => {
@@ -43,8 +43,8 @@ export const QualitiesProvider = ({ children }) => {
     }
 
     return (
-        <QualitiesContex.Provider value={{ qualites, getQuality }}>
+        <QualitiesContext.Provider value={{ qualites, getQuality }}>
             {!isLoading ? children : <h1>Loading....</h1>}
-        </QualitiesContex.Provider>
+        </QualitiesContext.Provider>
     );
 };

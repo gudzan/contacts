@@ -16,10 +16,7 @@ export default function App() {
             <QualitiesProvider>
                 <Switch>
                     <Route exact path="/" component={Main} />
-                    <Route
-                        path="/user/:userId"
-                        render={(props) => <User {...props} />}
-                    />
+                    <Route path="/user/:userId" render={(props) => <User {...props} />}/>
                     <Route path="/users" component={Users} />
                     <Route path="/login/:type?" component={Login} />
                     <Redirect to="/" />
