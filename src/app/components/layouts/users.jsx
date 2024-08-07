@@ -6,14 +6,18 @@ import * as utils from "../../utils/utils.js";
 import Filter from "../common/filter";
 import api from "../../api/index.js";
 import _ from "lodash";
+import { useUsers } from "../hooks/useUsers.jsx";
 
 export default function Users() {
+    const {users} = useUsers();
+    console.log(users);
+    
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectProf, setSelectProf] = useState();
     const [sortBy, setSortBy] = useState({ iterate: "name", order: "asc" });
-    const [users, setUsers] = useState(api.users.fetchAll());
+    //const [users, setUsers] = useState(api.users.fetchAll());
     const [searchData, setSearchData] = useState("");
 
     function handleSearch(e) {
@@ -22,18 +26,18 @@ export default function Users() {
     }
 
     const handleDelete = (userId) => {
-        setUsers(users.filter((user) => user._id !== userId));
+        //setUsers(users.filter((user) => user._id !== userId));
     };
 
     const handleToggleBookmark = (id) => {
         const newUsers = users.map((user) =>
             user._id === id ? { ...user, bookmark: !user.bookmark } : user
         );
-        setUsers(newUsers);
+        //setUsers(newUsers);
     };
 
     const returnAllUsers = () => {
-        setUsers(api.users.fetchAll());
+        //setUsers(api.users.fetchAll());
     };
 
     useEffect(() => {
@@ -95,11 +99,11 @@ export default function Users() {
     return (
         <>
             <SearchStatus length={users.length} />
-            {users.length === 0 && (
+            {/* {users.length === 0 && (
                 <button onClick={returnAllUsers} className="btn btn-success">
                     Вернуть всех обратно
                 </button>
-            )}
+            )} */}
             {professions && users.length !== 0 && (
                 <div
                     className={

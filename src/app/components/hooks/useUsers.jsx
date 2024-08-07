@@ -23,7 +23,8 @@ export const UsersProvider = ({ children }) => {
                 errorCatcher(error);
             }
         };
-    });
+        getUsers()
+    }, []);
 
     useEffect(() => {
         if (error !== null) {
