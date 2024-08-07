@@ -1,12 +1,31 @@
 import axios from "axios";
 import logger from "./logService";
 import { toast } from "react-toastify";
-import config from "../../config.json"
+import configuration from "../../config.json";
 
-axios.defaults.baseURL = config.apiEndpoint;
+axios.defaults.baseURL = configuration.fireBaseEndpoint;
+
+axios.interceptors.request.use(
+    function (config) {
+        if (configuration.isFireBase) {
+            const containSlash = /\/$/gi.test(config.url);
+            config.url =
+                (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+        }
+        return config;
+    },
+    function (error) {
+        return Promise.reject(error);
+    }
+);
 
 axios.interceptors.response.use(
-    (res) => res,
+    (res) => {
+        if (configuration.isFireBase) {
+            res.data = { content: transformData(res.data) };
+        }        
+        return res;
+    },
     function (error) {
         const expectedErrors =
             error.response &&
@@ -14,12 +33,17 @@ axios.interceptors.response.use(
             error.response.status < 500;
 
         if (!expectedErrors) {
-            logger.log(error)
+            logger.log(error);
             toast.error("Somthing was wrong. Try it later");
         }
         return Promise.reject(error);
     }
 );
+
+function transformData(data) {
+    return data ? Object.keys(data).map((key) => ({ ...data[key] })) : [];
+}
+
 const httpService = {
     get: axios.get,
     post: axios.post,
