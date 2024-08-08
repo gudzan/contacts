@@ -3,9 +3,9 @@ import logger from "./logService";
 import { toast } from "react-toastify";
 import configuration from "../../config.json";
 
-axios.defaults.baseURL = configuration.fireBaseEndpoint;
+const http = axios.create({ baseURL: configuration.fireBaseEndpoint });
 
-axios.interceptors.request.use(
+http.interceptors.request.use(
     function (config) {
         if (configuration.isFireBase) {
             const containSlash = /\/$/gi.test(config.url);
@@ -19,11 +19,11 @@ axios.interceptors.request.use(
     }
 );
 
-axios.interceptors.response.use(
+http.interceptors.response.use(
     (res) => {
         if (configuration.isFireBase) {
             res.data = { content: transformData(res.data) };
-        }        
+        }
         return res;
     },
     function (error) {
@@ -45,9 +45,10 @@ function transformData(data) {
 }
 
 const httpService = {
-    get: axios.get,
-    post: axios.post,
-    put: axios.put,
-    delete: axios.delete,
+    get: http.get,
+    post: http.post,
+    put: http.put,
+    delete: http.delete,
 };
+
 export default httpService;
