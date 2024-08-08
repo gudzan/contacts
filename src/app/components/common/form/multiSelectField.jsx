@@ -2,18 +2,13 @@ import React from "react";
 import Select from "react-select";
 
 const MultiSelectField = ({ label, name, value, onChange, options }) => {
-    const optionsList =
-        !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((key) => ({
-                  label: options[key].name,
-                  value: options[key]._id,
-              }))
-            : options;
+    const optionsList = Object.keys(options).map((key) => ({
+        label: options[key].name,
+        value: options[key]._id,
+    }));
 
     function handleChange(value) {
-        const values = Object.keys(value).map((key) => ({
-            value: value[key].value,
-        }));
+        const values = Object.keys(value).map((key) => value[key].value);
         onChange({ name: name, value: values });
     }
 
