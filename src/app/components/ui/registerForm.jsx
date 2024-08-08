@@ -5,13 +5,18 @@ import CheckBoxField from "../common/form/checkBoxField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import { validate } from "../../utils/validator";
-import api from "../../api/index.js";
+import { useProfessions } from "../hooks/useProfessions.jsx";
+import { useQualities } from "../hooks/useQualities.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
+
 const RegisterForm = () => {
     const sex = [
         { name: "Женщина", value: "female" },
         { name: "Мужчина", value: "male" },
         { name: "Не скажу/другое", value: "other" },
     ];
+
+    const {singUp} = useAuth();
 
     const [data, setData] = useState({
         email: "",
@@ -22,8 +27,8 @@ const RegisterForm = () => {
         licence: false,
     });
 
-    const [professions, setProfessions] = useState();
-    const [qualities, setQualities] = useState();
+    const { professions } = useProfessions();
+    const { qualities } = useQualities();
     const [errors, setErrors] = useState({});
 
     const errorConfig = {
@@ -67,11 +72,6 @@ const RegisterForm = () => {
     };
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
-        api.qualities.fetchAll().then((data) => setQualities(data));
-    }, []);
-
-    useEffect(() => {
         validateFields();
     }, [data]);
 
@@ -87,6 +87,7 @@ const RegisterForm = () => {
         e.preventDefault();
         if (!validateFields()) return;
         console.log(data);
+        singUp(data)
     }
 
     function validateFields() {

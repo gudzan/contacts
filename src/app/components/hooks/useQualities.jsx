@@ -9,7 +9,7 @@ export const useQualities = () => {
 };
 
 export const QualitiesProvider = ({ children }) => {
-    const [qualites, setQualities] = useState([]);
+    const [qualities, setQualities] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
@@ -34,7 +34,7 @@ export const QualitiesProvider = ({ children }) => {
     }, []);
 
     function getQuality(id) {
-        return qualites.find((q) => q._id === id);
+        return qualities.find((q) => q._id === id);
     }
 
     function errorCatcher(error) {
@@ -43,7 +43,7 @@ export const QualitiesProvider = ({ children }) => {
     }
 
     return (
-        <QualitiesContext.Provider value={{ qualites, getQuality }}>
+        <QualitiesContext.Provider value={{ qualities, getQuality }}>
             {children}
         </QualitiesContext.Provider>
     );
