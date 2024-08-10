@@ -1,23 +1,23 @@
-const accessToken = "accessToken";
-const refreshToken = "refreshToken";
-const expiresIn = "expiresIn";
+const ACCESS_TOKEN = "accessToken";
+const REFRESH_TOKEN = "refreshToken";
+const EXPIRES_IN = "expiresIn";
 
 export function setTokens(idToken, refreshToken, expiresIn) {
-    localStorage.setItem(accessToken, idToken);
-    localStorage.setItem(refreshToken, refreshToken);
-    localStorage.setItem(expiresIn, new Date().getTime() + expiresIn * 1000);
+    localStorage.setItem(ACCESS_TOKEN, idToken);
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+    localStorage.setItem(EXPIRES_IN, new Date().getTime() + expiresIn * 1000);
 }
 
 export function getAccessToken() {
-    localStorage.getItem(accessToken);
+    localStorage.getItem(ACCESS_TOKEN);
 }
 
 export function getRefreshToken() {
-    localStorage.getItem(refreshToken);
+    localStorage.getItem(REFRESH_TOKEN);
 }
 
 export function getExpiresIn() {
-    localStorage.getItem(expiresIn);
+    localStorage.getItem(EXPIRES_IN);
 }
 
 const localStorageService = {

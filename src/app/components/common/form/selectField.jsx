@@ -11,11 +11,11 @@ const SelectField = ({
 }) => {
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((key) => ({
-                  name: options[key].name,
-                  value: options[key]._id,
-              }))
-            : options;
+            ? options
+            : Object.keys(options).map((key) => ({
+                name: options[key].name,
+                value: options[key]._id,
+            }));
 
     function getSelectClassName() {
         let selectClassName = "form-select";

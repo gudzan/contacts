@@ -86,7 +86,6 @@ const RegisterForm = () => {
     function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
-        console.log(data);
         singUp(data)
     }
 
