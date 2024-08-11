@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
@@ -19,6 +19,21 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        updateUserData()
+    }, []);
+
+    async function updateUserData() {
+        if (localStorageService.getUserId()) {
+            const newUser = await userService.get(localStorageService.getUserId());
+            console.log(newUser);
+            
+            setUser(newUser);
+        }
+    }
+
     async function singUp(usersData) {
         try {
             const email = usersData.email;
@@ -40,6 +55,7 @@ export const AuthProvider = ({ children }) => {
                 completedMeetings: randomInteger(0, 200),
                 ...usersData,
             });
+            updateUserData()
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
@@ -62,12 +78,13 @@ export const AuthProvider = ({ children }) => {
                 `accounts:signInWithPassword`,
                 { email, password, returnSecureToken: true }
             );
-            console.log("singIn", data);
             localStorageService.setTokens(
                 data.idToken,
                 data.refreshToken,
-                data.expiresIn
+                data.expiresIn,
+                data.localId
             );
+            updateUserData()
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
@@ -96,8 +113,6 @@ export const AuthProvider = ({ children }) => {
                             email: `Неизвестная ошибка ${message}`,
                         };
                 }
-                console.log(errorObject);
-
                 throw errorObject;
             }
         }
@@ -105,8 +120,7 @@ export const AuthProvider = ({ children }) => {
 
     async function createUser(data) {
         try {
-            const { content } = await userService.create(data);
-            console.log("createUser говно какашка", content);
+            await userService.create(data);
         } catch (error) {
             errorCatcher(error);
         }
@@ -118,7 +132,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ singUp, singIn }}>
+        <AuthContext.Provider value={{ singUp, singIn, user }}>
             {children}
         </AuthContext.Provider>
     );

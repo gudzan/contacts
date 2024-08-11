@@ -49,7 +49,7 @@ const LoginForm = () => {
         console.log(data);
         try {
             await singIn(data);
-            //history.push("/");
+            history.push("/");
         } catch (error) {
             console.log(error.message);   
             setErrors(error);

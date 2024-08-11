@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import localStorageService from "../services/localStorageService";
+import { useAuth } from "../hooks/useAuth";
 
 export default function NavBar() {
-    const [user, setUser] = useState(null);
+    const { user } = useAuth();
 
-    useEffect(() => {
-        setUser(localStorageService.getUserId())
-    }, []);
+    const userNav = user ? (
+        <Link className="user-nav-link" to="/">
+            {user.name} - Выйти
+        </Link>
+    ) : (
+        <Link className="user-nav-link" to="/login">
+            Гость - Войти
+        </Link>
+    );
 
     return (
         <div className="nav-style ml-4">
@@ -22,16 +28,9 @@ export default function NavBar() {
                         Users
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                        Login
-                    </Link>
-                </li>
             </ul>
             <div>
-                <Link className="user-nav-link" to="/">
-                    User {user}
-                </Link>
+                {userNav}
             </div>
         </div>
     );

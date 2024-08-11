@@ -5,7 +5,7 @@ const userEndpoint = "user/";
 const userService = {
     get: async (id) => {
         const { data } = await httpService.get(userEndpoint + id);
-        return data;
+        return data.content;
     },
     getAll: async () => {
         const { data } = await httpService.get(userEndpoint);
