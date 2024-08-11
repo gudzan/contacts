@@ -2,6 +2,8 @@ import axios from "axios";
 import logger from "./logService";
 import { toast } from "react-toastify";
 import configuration from "../../config.json";
+import { httpAuth } from "../hooks/useAuth";
+import localStorageService from "../services/localStorageService.js"
 
 const http = axios.create({ baseURL: configuration.fireBaseEndpoint });
 
@@ -11,6 +13,23 @@ http.interceptors.request.use(
             const containSlash = /\/$/gi.test(config.url);
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+                const expiresDate = localStorageService.getExpiresIn()
+                const refreshToken = localStorageService.getRefreshToken();
+                if (refreshToken && expiresDate < Date.now()) {
+                    console.log("Время сменить токен");
+                    const { data } = await httpAuth.post("token", {
+                        grant_type: "refresh_token",
+                        refresh_token: refreshToken,
+                    });
+    
+                    localStorageService.setTokens({
+                        refreshToken: data.refresh_token,
+                        idToken: data.id_token,
+                        expiresIn: data.expires_id,
+                        localId: data.user_id,
+                    });
+                    console.log("Токен изменен", data);
+                }
         }
         return config;
     },
@@ -41,7 +60,9 @@ http.interceptors.response.use(
 );
 
 function transformData(data) {
-    return data && !data._id ? Object.keys(data).map((key) => ({ ...data[key] })) : data;
+    return data && !data._id
+        ? Object.keys(data).map((key) => ({ ...data[key] }))
+        : data;
 }
 
 const httpService = {
