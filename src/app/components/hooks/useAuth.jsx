@@ -3,7 +3,7 @@ import axios from "axios";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
 
-const httpAuth = axios.create({
+export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
     params: {
         key: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
 
     async function createUser(data) {
         try {
-            const { content } = userService.create(data);
+            const { content } = await userService.create(data);
             console.log("createUser говно какашка", content);
         } catch (error) {
             errorCatcher(error);

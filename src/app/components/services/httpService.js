@@ -6,7 +6,7 @@ import configuration from "../../config.json";
 const http = axios.create({ baseURL: configuration.fireBaseEndpoint });
 
 http.interceptors.request.use(
-    function (config) {
+    async function (config) {
         if (configuration.isFireBase) {
             const containSlash = /\/$/gi.test(config.url);
             config.url =
@@ -41,7 +41,7 @@ http.interceptors.response.use(
 );
 
 function transformData(data) {
-    return data ? Object.keys(data).map((key) => ({ ...data[key] })) : [];
+    return data && !data._id ? Object.keys(data).map((key) => ({ ...data[key] })) : data;
 }
 
 const httpService = {
