@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField.jsx";
 import { validate } from "../../utils/validator.js";
 import CheckBoxField from "../common/form/checkBoxField";
+import { useAuth } from "../hooks/useAuth.jsx"; 
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const LoginForm = () => {
+    const {singIn} = useAuth();
     const [data, setData] = useState({
         email: "",
         password: "",
         stayOn: false,
     });
     const [errors, setErrors] = useState({});
+    const history = useHistory()
+
     const errorConfig = {
         email: {
             isRequired: {
@@ -38,10 +43,17 @@ const LoginForm = () => {
         }));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
         console.log(data);
+        try {
+            await singIn(data);
+            //history.push("/");
+        } catch (error) {
+            console.log(error.message);   
+            setErrors(error);
+        }
     }
 
     function validateFields() {

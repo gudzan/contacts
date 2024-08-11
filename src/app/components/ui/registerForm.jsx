@@ -8,6 +8,7 @@ import { validate } from "../../utils/validator";
 import { useProfessions } from "../hooks/useProfessions.jsx";
 import { useQualities } from "../hooks/useQualities.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const RegisterForm = () => {
     const sex = [
@@ -30,6 +31,7 @@ const RegisterForm = () => {
     const { professions } = useProfessions();
     const { qualities } = useQualities();
     const [errors, setErrors] = useState({});
+    const history = useHistory()
 
     const errorConfig = {
         email: {
@@ -83,10 +85,15 @@ const RegisterForm = () => {
         }));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
-        singUp(data)
+        try {
+            await singUp(data);
+            history.push("/");
+        } catch (error) {
+            setErrors(error);
+        }
     }
 
     function validateFields() {
