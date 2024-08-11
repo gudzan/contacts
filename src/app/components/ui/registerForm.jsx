@@ -17,11 +17,12 @@ const RegisterForm = () => {
         { name: "Не скажу/другое", value: "other" },
     ];
 
-    const {singUp} = useAuth();
+    const { singUp } = useAuth();
 
     const [data, setData] = useState({
         email: "",
         password: "",
+        name: "",
         profession: "",
         sex: sex[0].value,
         qualities: [],
@@ -31,7 +32,7 @@ const RegisterForm = () => {
     const { professions } = useProfessions();
     const { qualities } = useQualities();
     const [errors, setErrors] = useState({});
-    const history = useHistory()
+    const history = useHistory();
 
     const errorConfig = {
         email: {
@@ -40,6 +41,15 @@ const RegisterForm = () => {
             },
             isEmail: {
                 message: "Почта введена некорректно",
+            },
+        },
+        name: {
+            isRequired: {
+                message: "Поле имя обязательно для заполнения",
+            },
+            min: {
+                value: 3,
+                message: "Имя должно состоять более чем из 3 символов",
             },
         },
         password: {
@@ -121,6 +131,14 @@ const RegisterForm = () => {
                 value={data.password}
                 onChange={handleClick}
                 error={errors.password}
+            />
+
+            <TextField
+                label="Имя:"
+                name="name"
+                value={data.name}
+                onChange={handleClick}
+                error={errors.name}
             />
 
             <SelectField

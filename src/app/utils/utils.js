@@ -14,6 +14,10 @@ export function calculateAge(birthday) {
     return age;
 }
 
+export function randomInteger(min, max) {
+    return Math.floor(min + Math.random() * (max + 1 - min));
+}
+
 export function renderPhrase(
     number,
     nominative,

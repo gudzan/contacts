@@ -9,3 +9,13 @@ iframe
 {
     display: none;
 }
+.nav-style{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-nav-link{
+    text-decoration: none;
+    padding: 1rem 0.5rem;
+    font-size: 18px;
+}

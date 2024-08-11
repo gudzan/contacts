@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
+import { randomInteger } from "../../utils/utils.js";
 
 export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
@@ -30,9 +31,15 @@ export const AuthProvider = ({ children }) => {
             localStorageService.setTokens(
                 data.idToken,
                 data.refreshToken,
-                data.expiresIn
+                data.expiresIn,
+                data.localId
             );
-            await createUser({ _id: data.localId, ...usersData });
+            await createUser({
+                _id: data.localId,
+                rate: randomInteger(0, 5),
+                completedMeetings: randomInteger(0, 200),
+                ...usersData,
+            });
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
@@ -49,7 +56,6 @@ export const AuthProvider = ({ children }) => {
 
     async function singIn(usersData) {
         try {
-            // debugger;
             const email = usersData.email;
             const password = usersData.password;
             const { data } = await httpAuth.post(
@@ -91,7 +97,7 @@ export const AuthProvider = ({ children }) => {
                         };
                 }
                 console.log(errorObject);
-                
+
                 throw errorObject;
             }
         }
