@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import NavProfile from "./navProfile";
 
 export default function NavBar() {
     const { user } = useAuth();
 
     const userNav = user ? (
-        <Link className="user-nav-link" to="/">
-            {user.name} - Выйти
-        </Link>
+        <NavProfile/>
     ) : (
         <Link className="user-nav-link" to="/login">
-            Гость - Войти
+            Login
         </Link>
     );
 
     return (
-        <div className="nav-style ml-4">
+        <div className="nav-style ml-4 bg-light p-3">
             <ul className="nav justify-content-start nav-pills">
                 <li className="nav-item">
                     <Link className="nav-link" to="/">

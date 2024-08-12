@@ -12,7 +12,7 @@ export default function SearchStatus(props) {
                       "юзеров",
                       "в базе"
                   )
-                : "Никого нет, ты всех удалил :("}
+                : "Никого нет :("}
         </p>
     );
 }

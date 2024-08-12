@@ -3,7 +3,7 @@ import logger from "./logService";
 import { toast } from "react-toastify";
 import configuration from "../../config.json";
 import { httpAuth } from "../hooks/useAuth";
-import localStorageService from "../services/localStorageService.js"
+import localStorageService from "../services/localStorageService.js";
 
 const http = axios.create({ baseURL: configuration.fireBaseEndpoint });
 
@@ -13,23 +13,27 @@ http.interceptors.request.use(
             const containSlash = /\/$/gi.test(config.url);
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
-                const expiresDate = localStorageService.getExpiresIn()
-                const refreshToken = localStorageService.getRefreshToken();
-                if (refreshToken && expiresDate < Date.now()) {
-                    console.log("Время сменить токен");
-                    const { data } = await httpAuth.post("token", {
-                        grant_type: "refresh_token",
-                        refresh_token: refreshToken,
-                    });
-    
-                    localStorageService.setTokens({
-                        refreshToken: data.refresh_token,
-                        idToken: data.id_token,
-                        expiresIn: data.expires_id,
-                        localId: data.user_id,
-                    });
-                    console.log("Токен изменен", data);
-                }
+            const expiresDate = localStorageService.getExpiresIn();
+            const refreshToken = localStorageService.getRefreshToken();
+            if (refreshToken && expiresDate < Date.now()) {
+                console.log("Время сменить токен");
+                const { data } = await httpAuth.post("token", {
+                    grant_type: "refresh_token",
+                    refresh_token: refreshToken,
+                });
+
+                localStorageService.setTokens({
+                    refreshToken: data.refresh_token,
+                    idToken: data.id_token,
+                    expiresIn: data.expires_id,
+                    localId: data.user_id,
+                });
+                console.log("Токен изменен", data);
+            }
+            const accessToken = localStorageService.getAccessToken()
+            if (accessToken) {
+                config.params = { ...config.params, auth: accessToken };
+            }
         }
         return config;
     },

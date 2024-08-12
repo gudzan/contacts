@@ -14,7 +14,7 @@ import { AuthProvider } from "./components/hooks/useAuth";
 
 export default function App() {
     return (
-        <div className="m-4">
+        <>
             <AuthProvider>
                 <NavBar />
                 <QualitiesProvider>
@@ -32,6 +32,6 @@ export default function App() {
                 </QualitiesProvider>
             </AuthProvider>
             <ToastContainer />
-        </div>
+        </>
     );
 }
