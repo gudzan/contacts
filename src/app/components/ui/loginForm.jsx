@@ -49,9 +49,12 @@ const LoginForm = () => {
         console.log(data);
         try {
             await singIn(data);
-            history.push("/");
-        } catch (error) {
-            console.log(error.message);   
+            history.push(
+                history.location.state
+                    ? history.location.state.from.pathname
+                    : "/"
+            );
+        } catch (error) {   
             setErrors(error);
         }
     }

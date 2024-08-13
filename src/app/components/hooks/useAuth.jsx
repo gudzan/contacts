@@ -3,6 +3,7 @@ import axios from "axios";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
 import { randomInteger } from "../../utils/utils.js";
+import { useHistory } from "react-router-dom";
 
 export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
@@ -20,6 +21,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
+    const history = useHistory()
 
     useEffect(() => {
         updateUserData()
@@ -28,8 +30,6 @@ export const AuthProvider = ({ children }) => {
     async function updateUserData() {
         if (localStorageService.getUserId()) {
             const newUser = await userService.get(localStorageService.getUserId());
-            console.log(newUser);
-            
             setUser(newUser);
         }
     }
@@ -48,11 +48,12 @@ export const AuthProvider = ({ children }) => {
                 data.refreshToken,
                 data.expiresIn,
                 data.localId
-            );
+            );            
             await createUser({
                 _id: data.localId,
                 rate: randomInteger(0, 5),
                 completedMeetings: randomInteger(0, 200),
+                image: `https://api.dicebear.com/9.x/avataaars/svg?seed=${randomInteger(1,1000)}`,
                 ...usersData,
             });
             updateUserData()
@@ -118,6 +119,12 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    function logOut() {
+        localStorageService.removeTokens();
+        setUser(null);
+        history.push("/");
+    }
+
     async function createUser(data) {
         try {
             await userService.create(data);
@@ -132,7 +139,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ singUp, singIn, user }}>
+        <AuthContext.Provider value={{ singUp, singIn, user, logOut }}>
             {children}
         </AuthContext.Provider>
     );

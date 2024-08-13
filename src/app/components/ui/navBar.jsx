@@ -7,7 +7,7 @@ export default function NavBar() {
     const { user } = useAuth();
 
     const userNav = user ? (
-        <NavProfile/>
+        <NavProfile />
     ) : (
         <Link className="user-nav-link" to="/login">
             Login
@@ -22,15 +22,15 @@ export default function NavBar() {
                         Main
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to="/users">
-                        Users
-                    </Link>
-                </li>
+                {user && (
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/users">
+                            Users
+                        </Link>
+                    </li>
+                )}
             </ul>
-            <div>
-                {userNav}
-            </div>
+            <div>{userNav}</div>
         </div>
     );
 }

@@ -22,7 +22,6 @@ export default function UsersTable({
             ),
         },
         qualities: {
-            // path: "qualities.name",
             name: "Тэги",
             component: (user) => <QualitiesList qualities={user.qualities} />,
         },
@@ -31,24 +30,9 @@ export default function UsersTable({
             sort: true,            
             component: (user) => <Profession id={user.profession} />,
         },
-        // birthday: { path: "birthday", sort: true, name: "Дата рождения" },
-        // profession: { path: "profession.name", sort: true, name: "Профессия" },
         completedMeetings: { path: "completedMeetings", name: "Кол-во встреч" },
         rate: { path: "rate", name: "Рейтинг" },
-        // phone: { path: "phone", name: "Телефон" },
         email: { path: "email", name: "Почта" },
-        // bookmark: {
-        //     path: "bookmark",
-        //     sort: true,
-        //     name: "Избранное",
-        //     component: (user) => (
-        //         <Bookmark
-        //             onToggleBookmark={onToggleBookmark}
-        //             bookmark={user.bookmark}
-        //             id={user._id}
-        //         />
-        //     ),
-        // },
         action: {
             name: "Действия",
             component: (user) => (

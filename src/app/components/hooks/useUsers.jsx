@@ -41,6 +41,7 @@ export const UsersProvider = ({ children }) => {
     function getUser(id) {
         return users.find((user) => user._id === id);
     }
+    
 
     return (
         <UsersContext.Provider value={{ users, getUser, isLoading }}>

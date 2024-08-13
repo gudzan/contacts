@@ -8,12 +8,17 @@ export default function NavProfile() {
     const toggleMenu = () => {
         setOpen((prevState) => !prevState);
     };
+
+    const image = user.image
+        ? user.image
+        : `https://api.dicebear.com/9.x/avataaars/svg?seed=100`;
+
     return (
         <div className="dropdown" onClick={toggleMenu}>
             <div className="btn dropdown-toggle d-flex align-items-center bg-light">
                 <div className="me-2">{user.name}</div>
                 <img
-                    src="https://api.dicebear.com/9.x/avataaars/svg?seed=Baby&radius=50&backgroundColor=b6e3f4"
+                    src={image}
                     alt="avatar"
                     height="40"
                     className="img-responsive rounded-circle"
