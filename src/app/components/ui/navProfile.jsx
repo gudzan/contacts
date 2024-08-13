@@ -25,7 +25,7 @@ export default function NavProfile() {
                 />
             </div>
             <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
-                <Link to={`/users/${user._id}`} className="dropdown-item">
+                <Link to={`/user/${user._id}`} className="dropdown-item">
                     Profile
                 </Link>
                 <Link to="/logout" className="dropdown-item">

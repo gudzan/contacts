@@ -1,13 +1,16 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import QualitiesList from "../ui/qualities/qualitiesList.jsx";
-import * as utils from "../../utils/utils.js";
-import api from "../../api/index.js";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { useProfessions } from "../hooks/useProfessions.jsx";
 
 export default function User() {
-    const params = useParams();
     const history = useHistory();
-    const user = api.users.getById(params.userId);
+    const {user} = useAuth()
+    const {getProfession} = useProfessions()
+    const profession = getProfession(user.profession)
+    console.log(user);
+    
 
     function handleClick() {
         history.push("/users");
@@ -16,22 +19,18 @@ export default function User() {
     if (user) {
         return (
             <div>
+                <img
+                    src={user.image}
+                    alt="avatar"
+                    height="240"
+                    className="img-responsive rounded-circle"
+                />
                 <h1>{user.name}</h1>
-                <p>Профессия: {user.profession.name}</p>
+                <p>Профессия: {profession.name}</p>
                 <div className="mb-3">
                     <QualitiesList qualities={user.qualities} />
                 </div>
-                <p>Телефон: {user.phone}</p>
-                <p>Почта: {user.mail}</p>
-                <p>
-                    День рождения:{" "}
-                    {`${user.birthday.toLocaleDateString()} (${utils.renderPhrase(
-                        utils.calculateAge(user.birthday),
-                        "год",
-                        "года",
-                        "лет"
-                    )})`}
-                </p>
+                <p>Почта: {user.email}</p>
                 <button onClick={handleClick}>Вернуться обратно</button>
             </div>
         );

@@ -21,6 +21,8 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
+    console.log("AuthProvider",user);
+    
     const history = useHistory()
 
     useEffect(() => {

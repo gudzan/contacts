@@ -4,15 +4,15 @@ import Pagination from "../common/pagination.jsx";
 import SearchStatus from "../ui/searchStatus";
 import * as utils from "../../utils/utils.js";
 import Filter from "../common/filter";
-import api from "../../api/index.js";
 import _ from "lodash";
 import { useUsers } from "../hooks/useUsers.jsx";
+import { useProfessions } from "../hooks/useProfessions.jsx";
 
 export default function Users() {
-    const {users} = useUsers();
+    const { users } = useUsers();
+    const { professions } = useProfessions();
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions, setProfessions] = useState();
     const [selectProf, setSelectProf] = useState();
     const [sortBy, setSortBy] = useState({ iterate: "name", order: "asc" });
     const [searchData, setSearchData] = useState("");
@@ -22,18 +22,15 @@ export default function Users() {
         setSelectProf();
     }
 
-    const handleDelete = (userId) => {
-        
-    };
+    const handleDelete = (userId) => {};
 
     const handleToggleBookmark = (id) => {
         const newUsers = users.map((user) =>
             user._id === id ? { ...user, bookmark: !user.bookmark } : user
         );
     };
-    
+
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
         console.log("useEffect");
         return () => {
             console.log("the end");
@@ -75,7 +72,7 @@ export default function Users() {
 
     function filterOrSearchUsers() {
         if (selectProf) {
-            return users.filter((user) => user.profession === selectProf);
+            return users.filter((user) => user.profession === selectProf._id);
         } else if (searchData) {
             return users.filter((user) =>
                 user.name.toLowerCase().includes(searchData.toLowerCase())

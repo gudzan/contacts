@@ -1,16 +1,17 @@
 import React from "react";
-//здесь используесть в качестве элементов обьект, но лично мне хотелось бы видеть лист, но нужно было потренировать обьект и значения по умолчанию
+
 const Filter = ({
     items,
     valueProperty,
     contentProperty,
     onSelectItem,
     selectedItem,
-}) => {
-    const array = Object.keys(items);
-    const getClassForActiveItem = (item) => {
+}) => {   
+    const getClassForActiveItem = (item) => {       
         return selectedItem === item ? " active" : "";
     };
+
+    
     return (
         <div className="dropdown ">
             <button
@@ -20,20 +21,20 @@ const Filter = ({
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                {selectedItem ? selectedItem[contentProperty] : "Фильтр"}
+                {selectedItem ? selectedItem.name : "Фильтр"}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                {array.map((key) => (
-                    <li key={items[key][valueProperty]}>
+                {items.map((item) => (
+                    <li key={item._id}>
                         <button
                             className={
                                 "dropdown-item" +
-                                getClassForActiveItem(items[key])
+                                getClassForActiveItem(item)
                             }
                             type="button"
-                            onClick={() => onSelectItem(items[key])}
+                            onClick={() => onSelectItem(item)}
                         >
-                            {items[key][contentProperty]}
+                            {item.name}
                         </button>
                     </li>
                 ))}

@@ -24,7 +24,7 @@ export default function App() {
                         <UsersProvider>
                             <Switch>
                                 <Route exact path="/" component={Main}/>
-                                <ProtectedRoute path="/user/:userId" render={(props) => <User {...props} />}/>
+                                <Route path="/user/:userId" render={(props) => <User {...props} />}/>
                                 <ProtectedRoute  path="/users" component={Users}/>
                                 <Route path="/login/:type?" component={Login}/>
                                 <Route path="/logout" component={LogOut}/>
