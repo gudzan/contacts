@@ -7,7 +7,6 @@ import NavBar from "./components/ui/navBar";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { QualitiesProvider } from "./components/hooks/useQualities";
 import { ProfessionsProvider } from "./components/hooks/useProfessions";
 import { UsersProvider } from "./components/hooks/useUsers";
 import { AuthProvider } from "./components/hooks/useAuth";
@@ -26,7 +25,6 @@ export default function App() {
         <>
             <AuthProvider>
                 <NavBar />
-                <QualitiesProvider>
                     <ProfessionsProvider>
                         <UsersProvider>
                             <Switch>
@@ -45,7 +43,6 @@ export default function App() {
                             </Switch>
                         </UsersProvider>
                     </ProfessionsProvider>
-                </QualitiesProvider>
             </AuthProvider>
             <ToastContainer />
         </>

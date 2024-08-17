@@ -1,11 +1,8 @@
 import React from "react";
-import { useQualities } from "../../hooks/useQualities";
 
-export default function Quality({id}) {
-    const { getQuality } = useQualities();
-    const { color, name } = getQuality(id);
+export default function Quality({ _id, color, name }) {
     return (
-        <span className={`badge m-1 rounded-pill bg-${color}`}>
+        <span key={_id} className={`badge m-1 rounded-pill bg-${color}`}>
             {name}
         </span>
     );

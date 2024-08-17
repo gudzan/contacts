@@ -37,7 +37,7 @@ export default function TextField({
                 />
                 {type === "password" && (
                     <button
-                        class="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary"
                         type="button"
                         onClick={toggleShowPassword}
                     >

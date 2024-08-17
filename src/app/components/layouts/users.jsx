@@ -31,13 +31,6 @@ export default function Users() {
     };
 
     useEffect(() => {
-        console.log("useEffect");
-        return () => {
-            console.log("the end");
-        };
-    }, []);
-
-    useEffect(() => {
         setCurrentPage(1);
     }, [selectProf, searchData]);
 

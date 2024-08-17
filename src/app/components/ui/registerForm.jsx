@@ -6,9 +6,10 @@ import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import { validate } from "../../utils/validator";
 import { useProfessions } from "../hooks/useProfessions.jsx";
-import { useQualities } from "../hooks/useQualities.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
+import { useSelector } from "react-redux";
+import { getQualities, getQualitiesLoadingStatus } from "../../store/qualities.js";
 
 const RegisterForm = () => {
     const sex = [
@@ -30,7 +31,8 @@ const RegisterForm = () => {
     });
 
     const { professions } = useProfessions();
-    const { qualities } = useQualities();
+    const qualities = useSelector(getQualities())
+    const qualitiesLoading = useSelector(getQualitiesLoadingStatus())
     const [errors, setErrors] = useState({});
     const history = useHistory();
 
@@ -113,9 +115,8 @@ const RegisterForm = () => {
     }
 
     const isValid = Object.keys(errors).length === 0;
-
-    return (
-        <form onSubmit={handleSubmit}>
+    if (!qualitiesLoading) {
+        return (<form onSubmit={handleSubmit}>
             <TextField
                 label="Почта:"
                 name="email"
@@ -183,8 +184,8 @@ const RegisterForm = () => {
             >
                 Отправить
             </button>
-        </form>
-    );
+        </form>);
+    } else return <p>Loading...</p>;
 };
 
 export default RegisterForm;

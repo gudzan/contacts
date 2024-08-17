@@ -9,7 +9,7 @@ import logger from "./app/components/services/logService";
 import { Provider } from "react-redux";
 import createStore from "./app/store/createStore.js"
 
-logger.init();
+// logger.init();
 const store = createStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

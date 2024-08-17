@@ -29,13 +29,30 @@ export const loadQualitiesList = (id) => async (dispatch) => {
         const { content } = await qualityService.getAll();
         dispatch(qualitiesReceved(content));
     } catch (error) {
-        dispatch(qualitiesRequestFailed(error.message))
+        dispatch(qualitiesRequestFailed(error.message));
     }
 };
 
 const { actions, reducer: qualitiesReduser } = qualitiesSlice;
-const { qualitiesRequested, qualitiesReceved, qualitiesRequestFailed } = actions;
+const { qualitiesRequested, qualitiesReceved, qualitiesRequestFailed } =
+    actions;
 
 export const getQualities = () => (state) => state.qualities.entities;
-
+export const getQualitiesLoadingStatus = () => (state) => state.qualities.isLoading;
+export const getQualitiesByIds = (qualitiesIds) => (state) => {
+    if (state.qualities.entities) {
+        const qualitiesArray = [];
+        for (const qId of qualitiesIds) {
+            for (const q of state.qualities.entities) {
+                if (q._id === qId) {
+                    qualitiesArray.push(q);
+                    break;
+                }
+            }
+        }
+        return qualitiesArray;
+    } else {
+        return [];
+    }
+};
 export default qualitiesReduser;
