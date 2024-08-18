@@ -5,13 +5,14 @@ import SearchStatus from "../ui/searchStatus";
 import * as utils from "../../utils/utils.js";
 import Filter from "../common/filter";
 import _ from "lodash";
-import { useUsers } from "../hooks/useUsers.jsx";
 import { useSelector } from "react-redux";
 import { getProfessions } from "../../store/professions.js";
+import { getUsers, getUsersLoadingStatus } from "../../store/users.js";
 
 export default function Users() {
-    const { users } = useUsers();
-    const professions = useSelector(getProfessions())
+    const users = useSelector(getUsers());
+    const usersLoading = useSelector(getUsersLoadingStatus());
+    const professions = useSelector(getProfessions());
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [selectProf, setSelectProf] = useState();
@@ -78,7 +79,9 @@ export default function Users() {
     const usersCount = newUsers.length;
     const sortedUsers = _.orderBy(newUsers, [sortBy.iterate], [sortBy.order]);
     const usersFinish = utils.paginate(sortedUsers, currentPage, pageSize);
-
+    if (usersLoading) {
+        return <p>Loading users...</p>;
+    }
     return (
         <div className="m-4">
             <SearchStatus length={users.length} />
