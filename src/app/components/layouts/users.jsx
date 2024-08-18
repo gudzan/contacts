@@ -6,11 +6,12 @@ import * as utils from "../../utils/utils.js";
 import Filter from "../common/filter";
 import _ from "lodash";
 import { useUsers } from "../hooks/useUsers.jsx";
-import { useProfessions } from "../hooks/useProfessions.jsx";
+import { useSelector } from "react-redux";
+import { getProfessions } from "../../store/professions.js";
 
 export default function Users() {
     const { users } = useUsers();
-    const { professions } = useProfessions();
+    const professions = useSelector(getProfessions())
     const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [selectProf, setSelectProf] = useState();

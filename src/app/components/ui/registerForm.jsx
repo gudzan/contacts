@@ -5,11 +5,11 @@ import CheckBoxField from "../common/form/checkBoxField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import { validate } from "../../utils/validator";
-import { useProfessions } from "../hooks/useProfessions.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
 import { useSelector } from "react-redux";
 import { getQualities, getQualitiesLoadingStatus } from "../../store/qualities.js";
+import { getProfessions, getProfessionsLoadingStatus } from "../../store/professions.js";
 
 const RegisterForm = () => {
     const sex = [
@@ -30,7 +30,8 @@ const RegisterForm = () => {
         licence: false,
     });
 
-    const { professions } = useProfessions();
+    const professions = useSelector(getProfessions())
+    const professionsLoading = useSelector(getProfessionsLoadingStatus())
     const qualities = useSelector(getQualities())
     const qualitiesLoading = useSelector(getQualitiesLoadingStatus())
     const [errors, setErrors] = useState({});
@@ -115,7 +116,7 @@ const RegisterForm = () => {
     }
 
     const isValid = Object.keys(errors).length === 0;
-    if (!qualitiesLoading) {
+    if (!qualitiesLoading || !professionsLoading) {
         return (<form onSubmit={handleSubmit}>
             <TextField
                 label="Почта:"
