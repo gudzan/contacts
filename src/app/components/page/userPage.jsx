@@ -1,14 +1,15 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import QualitiesList from "../ui/qualities/qualitiesList.jsx";
-import { useAuth } from "../hooks/useAuth.jsx";
-import { getProfessionById } from "../../store/professions.js";
 import { useSelector } from "react-redux";
+import { getUserById } from "../../store/users";
+import { getProfessionById } from "../../store/professions.js";
+import history from "../../utils/history.js";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min.js";
 
 export default function User() {
-    const history = useHistory();
-    const {user} = useAuth()    
-    const profession = useSelector(getProfessionById(user.profession))
+    const params = useParams();
+    const user = useSelector(getUserById(params.userId));
+    const profession = useSelector(getProfessionById(user.profession));
 
     function handleClick() {
         history.push("/users");

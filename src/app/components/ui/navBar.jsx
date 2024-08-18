@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getCurrentUserData } from "../../store/users";
 import NavProfile from "./navProfile";
 
 export default function NavBar() {
-    const { user } = useAuth();
-
+    const user = useSelector(getCurrentUserData())
     const userNav = user ? (
         <NavProfile />
     ) : (
@@ -13,6 +13,7 @@ export default function NavBar() {
             Login
         </Link>
     );
+
 
     return (
         <div className="nav-style ml-4 bg-light p-3">

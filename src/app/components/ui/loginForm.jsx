@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField.jsx";
 import { validate } from "../../utils/validator.js";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useAuth } from "../hooks/useAuth.jsx"; 
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
+import history from "../../utils/history.js";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/users.js";
 
 const LoginForm = () => {
-    const {singIn} = useAuth();
+    const dispatch = useDispatch();
+
     const [data, setData] = useState({
         email: "",
         password: "",
         stayOn: false,
     });
     const [errors, setErrors] = useState({});
-    const history = useHistory()
 
     const errorConfig = {
         email: {
@@ -43,20 +44,15 @@ const LoginForm = () => {
         }));
     }
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
-        console.log(data);
-        try {
-            await singIn(data);
-            history.push(
-                history.location.state
-                    ? history.location.state.from.pathname
-                    : "/"
-            );
-        } catch (error) {   
-            setErrors(error);
-        }
+        const redirect = history.location.state ? history.location.state.from.pathname
+: "/";
+        dispatch(login({ payload: data, redirect }));
+        // history.push(
+        //     history.location.state ? history.location.state.from.pathname : "/"
+        // );
     }
 
     function validateFields() {

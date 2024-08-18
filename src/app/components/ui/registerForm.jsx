@@ -5,11 +5,10 @@ import CheckBoxField from "../common/form/checkBoxField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import { validate } from "../../utils/validator";
-import { useAuth } from "../hooks/useAuth.jsx";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getQualities, getQualitiesLoadingStatus } from "../../store/qualities.js";
 import { getProfessions, getProfessionsLoadingStatus } from "../../store/professions.js";
+import { signUp } from "../../store/users.js";
 
 const RegisterForm = () => {
     const sex = [
@@ -18,7 +17,8 @@ const RegisterForm = () => {
         { name: "Не скажу/другое", value: "other" },
     ];
 
-    const { singUp } = useAuth();
+    const dispatch = useDispatch()
+    //const { singUp } = useAuth();
 
     const [data, setData] = useState({
         email: "",
@@ -35,7 +35,7 @@ const RegisterForm = () => {
     const qualities = useSelector(getQualities())
     const qualitiesLoading = useSelector(getQualitiesLoadingStatus())
     const [errors, setErrors] = useState({});
-    const history = useHistory();
+    // const history = useHistory();
 
     const errorConfig = {
         email: {
@@ -98,15 +98,10 @@ const RegisterForm = () => {
         }));
     }
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
-        try {
-            await singUp(data);
-            history.push("/");
-        } catch (error) {
-            setErrors(error);
-        }
+        dispatch(signUp(data))
     }
 
     function validateFields() {
