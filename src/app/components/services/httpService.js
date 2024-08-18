@@ -2,7 +2,7 @@ import axios from "axios";
 import logger from "./logService";
 import { toast } from "react-toastify";
 import configuration from "../../config.json";
-import { httpAuth } from "../hooks/useAuth";
+import { httpAuth } from "./authService.js"
 import localStorageService from "../services/localStorageService.js";
 
 const http = axios.create({ baseURL: configuration.fireBaseEndpoint });

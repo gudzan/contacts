@@ -18,7 +18,6 @@ const RegisterForm = () => {
     ];
 
     const dispatch = useDispatch()
-    //const { singUp } = useAuth();
 
     const [data, setData] = useState({
         email: "",
@@ -35,8 +34,7 @@ const RegisterForm = () => {
     const qualities = useSelector(getQualities())
     const qualitiesLoading = useSelector(getQualitiesLoadingStatus())
     const [errors, setErrors] = useState({});
-    // const history = useHistory();
-
+    
     const errorConfig = {
         email: {
             isRequired: {
