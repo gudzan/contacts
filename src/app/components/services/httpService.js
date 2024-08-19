@@ -16,7 +16,6 @@ http.interceptors.request.use(
             const expiresDate = localStorageService.getExpiresIn();
             const refreshToken = localStorageService.getRefreshToken();
             if (refreshToken && expiresDate < Date.now()) {
-                console.log("Время сменить токен");
                 const { data } = await httpAuth.post("token", {
                     grant_type: "refresh_token",
                     refresh_token: refreshToken,
@@ -28,7 +27,6 @@ http.interceptors.request.use(
                     expiresIn: data.expires_id,
                     localId: data.user_id,
                 });
-                console.log("Токен изменен", data);
             }
             const accessToken = localStorageService.getAccessToken()
             if (accessToken) {
@@ -56,7 +54,7 @@ http.interceptors.response.use(
             error.response.status < 500;
 
         if (!expectedErrors) {
-            // logger.log(error);
+            logger.log(error);
             toast.error("Somthing was wrong. Try it later");
         }
         return Promise.reject(error);

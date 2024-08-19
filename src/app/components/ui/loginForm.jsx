@@ -3,12 +3,12 @@ import TextField from "../common/form/textField.jsx";
 import { validate } from "../../utils/validator.js";
 import CheckBoxField from "../common/form/checkBoxField";
 import history from "../../utils/history.js";
-import { useDispatch } from "react-redux";
-import { login } from "../../store/users.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthErrors, login } from "../../store/users.js";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
-
+    const loginError = useSelector(getAuthErrors());
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -47,8 +47,9 @@ const LoginForm = () => {
     function handleSubmit(e) {
         e.preventDefault();
         if (!validateFields()) return;
-        const redirect = history.location.state ? history.location.state.from.pathname
-: "/";
+        const redirect = history.location.state
+            ? history.location.state.from.pathname
+            : "/";
         dispatch(login({ payload: data, redirect }));
         // history.push(
         //     history.location.state ? history.location.state.from.pathname : "/"
@@ -88,6 +89,7 @@ const LoginForm = () => {
             >
                 Оставаться в системе
             </CheckBoxField>
+            {loginError && <p className="text-danger">{loginError}</p>}
             <button
                 className="w-100 mx-auto btn btn-primary"
                 type="submit"
